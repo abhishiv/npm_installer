@@ -2,10 +2,12 @@ import express from 'express'
 import {v4} from 'uuid'
 import process from 'process'
 import bodyParser from 'body-parser'
+import cors from 'cors';
 
 const app = express();
 
 app.use(bodyParser.json())
+app.use(cors())
 
 export async function getLockfilePostInstall(taskId, manifest, lockFile) {
   return {}
