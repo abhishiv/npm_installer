@@ -1,0 +1,54 @@
+{
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "target": "es5",
+    "module": "commonjs",
+    "strict": true,
+    "declaration": true,
+    "esModuleInterop": true,
+    "downlevelIteration": true,
+    "moduleResolution": "node",
+    "outDir": "dist",
+    "noEmit": true,
+    "jsx": "react",
+    "lib": [
+      "es2015",
+      "es5",
+      "dom",
+      "scripthost",
+      "esnext.asynciterable",
+      "esnext"
+    ],
+    "baseUrl": ".",
+    "skipLibCheck": true,
+    "paths": {
+      "@oss-stealth/prosemirror/dist/*": ["./packages/prosemirror/src/*"],
+      "@oss-stealth/prosemirror/*": ["./packages/prosemirror/*"],
+      "@oss-stealth/monaco/dist/*": ["./packages/monaco/src/*"],
+      "@oss-stealth/monaco/*": ["./packages/monaco/*"],
+
+      "@oss-stealth/unikernel/dist/*": ["./packages/unikernel/src/*"],
+      "@oss-stealth/unikernel/*": ["./packages/unikernel/*"],
+      "@oss-stealth/utils/dist/*": ["./packages/utils/src/*"],
+      "@oss-stealth/utils/*": ["./packages/utils/*"],
+      "@oss-stealth/ui/dist/*": ["./packages/ui/src/*"],
+      "@oss-stealth/ui/*": ["./packages/ui/*"],
+      "@oss-stealth/tree_viewer/dist/*": ["./packages/tree_viewer/src/*"],
+      "@oss-stealth/tree_viewer/*": ["./packages/tree_viewer/*"]
+    },
+    "typeRoots": ["./node_modules/@types", "./packages/@types"]
+  },
+  "exclude": [
+    "tools/typedoc/**/*",
+    "docs/**/*",
+    "**/bundles/**/*",
+    "packages/**/node_modules/**/*",
+    "packages/**/public/javascripts/**/*",
+    "packages/hub/src/e2e"
+  ],
+  "watchOptions": {
+    "watchFile": "useFsEvents",
+    "watchDirectory": "useFsEvents",
+    "fallbackPolling": "dynamicPriority"
+  }
+}
