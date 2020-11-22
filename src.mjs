@@ -3,16 +3,27 @@ import {v4} from 'uuid'
 import process from 'process'
 import bodyParser from 'body-parser'
 import cors from 'cors';
-
+import spawn from 'await-spawn'
+import fs from 'fs';
+import path from 'path'
+import {promisify} from 'util'
 const app = express();
 
 app.use(bodyParser.json())
 app.use(cors())
 
 export async function getLockfilePostInstall(taskId, manifest, lockFile) {
-  return {}
+  const dir = path.join(process.cwd(), "tasks", taskId)
+  console.log('dir', dir)
+  console.log(manifest, lockFile)
+  await spawn('mkdir', [  dir])
+  await promisify(fs.writeFile)(path.join(dir, 'package.json'), JSON.stringify(manifest))
+  await promisify(fs.writeFile)(path.join(dir, 'package-lock.json'), JSON.stringify(lockFile))
+  await spawn('npm', ['i', '--package-lock-only'], {cwd: dir})
+  const updatedLockFileText = await promisify(fs.readFile)(path.join(dir, 'package-lock.json'), {encoding: 'utf8'})
+  return JSON.parse(updatedLockFileText)
 }
-app.post("/install", async (req, res) => {
+app.post("/_/npm/install", async (req, res) => {
   const body = req.body;
   const {manifest, lockFile} = body;
   const taskId = v4();
